@@ -4,7 +4,6 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-group = "kt.deip"
 version = "0.1.0"
 
 repositories {

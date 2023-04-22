@@ -1,7 +1,6 @@
 package kt.deip.prometheus
 
 import com.destroystokyo.paper.event.player.PlayerConnectionCloseEvent
-import io.prometheus.client.Counter
 import io.prometheus.client.Gauge
 import io.prometheus.client.exporter.HTTPServer
 import io.prometheus.client.exporter.HTTPServer.Builder
