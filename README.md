@@ -18,8 +18,8 @@ All metrics are prefixed with `mc_*`.
 
 ### Config
 
-In the plugin configuration file `plugins/prometric/config.yml`
-You can customize the port on which the metrics will be exposed.
+In the plugin configuration file `plugins/prometric/config.yml`\
+you can customize the port on which the metrics will be exposed
 
 ```yaml
 port: 9190 # default
