@@ -10,8 +10,8 @@ All metrics are prefixed with `mc_*`.
 
 - online players count
 - online players ping
-- total placed blocks by player
-- total broken blocks by player
+- total placed blocks by player (during a session)
+- total broken blocks by player (during a session)
 - total player deaths
 - total player kills
 - player time since last death (in s)
