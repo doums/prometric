@@ -19,7 +19,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.event.player.PlayerMoveEvent
+import org.bukkit.event.player.PlayerStatisticIncrementEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class Prometric : JavaPlugin() {
@@ -86,7 +86,7 @@ class Prometric : JavaPlugin() {
         }
 
         @EventHandler(priority = EventPriority.MONITOR)
-        fun onPlayerMove(e: PlayerMoveEvent) {
+        fun onPlayerStatisticIncrement(e: PlayerStatisticIncrementEvent) {
             // update some player stats
             for (p in server.onlinePlayers) {
                 onlinePlayer.labels(p.uniqueId.toString(), p.name).set(e.player.ping.toDouble())
