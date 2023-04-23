@@ -2,6 +2,8 @@
 
 Prometheus exporter for PaperMC server
 
+![grafana_dashboard](https://user-images.githubusercontent.com/6359431/233843185-08b9b6c9-e92e-4cef-b3a6-1ca3a40989e6.png)
+
 ### Metrics
 
 All metrics are prefixed with `mc_*`.
