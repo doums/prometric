@@ -1,4 +1,4 @@
-name: Prometric
+name: prometric
 version: '0.1.0'
 main: kt.deip.prometheus.Prometric
 description: Prometheus exporter for PaperMC server
