@@ -7,7 +7,7 @@ Prometheus exporter for PaperMC server
 All metrics are prefixed with `mc_*`.
 
 - online players count
-- online players pseudo (`name` label)
+- online players ping
 - total placed blocks by player
 - total broken blocks by player
 - total player deaths
@@ -38,10 +38,6 @@ Use the `shadowJar` gradle task to build the plugin JAR file, will be located in
 ```shell
 gradlew shadowJar
 ```
-
-### TODO
-
-- metrics based on scoreboard bukkit API
 
 ### License
 

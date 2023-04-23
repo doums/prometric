@@ -28,10 +28,10 @@ class Prometric : JavaPlugin() {
     val onlinePlayers: Gauge = Gauge.build()
         .name("mc_online_players_total").help("Online players total").register()
 
-    val onlinePlayer: Gauge = Gauge.build()
-        .name("mc_online_player")
+    val playerPing: Gauge = Gauge.build()
+        .name("mc_player_ping")
         .labelNames("uuid", "name")
-        .help("An online player").register()
+        .help("Online player ping").register()
 
     val blocksPlaced: Counter = Counter.build()
         .name("mc_blocks_placed")
@@ -56,7 +56,7 @@ class Prometric : JavaPlugin() {
     val playerTimeSinceLastDeath: Gauge = Gauge.build()
         .name("mc_player_timesld")
         .labelNames("uuid", "name")
-        .help("Player kill count").register()
+        .help("Time since last death (in sec)").register()
 
     private val maxPlayers: Gauge = Gauge.build()
         .name("mc_max_players").help("Max players").register()
@@ -69,7 +69,7 @@ class Prometric : JavaPlugin() {
             val player = e.player
             val playerUuid = player.uniqueId.toString()
             val playerName = player.name
-            onlinePlayer.labels(playerUuid, playerName).set(e.player.ping.toDouble())
+            playerPing.labels(playerUuid, playerName).set(e.player.ping.toDouble())
             playerDeaths.labels(playerUuid, playerName)
                 .set(player.getStatistic(Statistic.DEATHS).toDouble())
             playerKills.labels(playerUuid, playerName)
@@ -82,17 +82,16 @@ class Prometric : JavaPlugin() {
         @EventHandler(priority = EventPriority.MONITOR)
         fun onPlayerConnectionClose(e: PlayerConnectionCloseEvent) {
             onlinePlayers.set(getOnlinePlayers().size.toDouble())
-            onlinePlayer.remove(e.playerUniqueId.toString(), e.playerName)
+            playerPing.remove(e.playerUniqueId.toString(), e.playerName)
         }
 
         @EventHandler(priority = EventPriority.MONITOR)
         fun onPlayerStatisticIncrement(e: PlayerStatisticIncrementEvent) {
-            // update some player stats
-            for (p in server.onlinePlayers) {
-                onlinePlayer.labels(p.uniqueId.toString(), p.name).set(e.player.ping.toDouble())
-                playerTimeSinceLastDeath.labels(p.uniqueId.toString(), p.name)
-                    .set(p.getStatistic(Statistic.TIME_SINCE_DEATH).toDouble() * 0.05)
-            }
+            val playerUuid = e.player.uniqueId.toString()
+            val playerName = e.player.name
+            playerPing.labels(playerUuid, playerName).set(e.player.ping.toDouble())
+            playerTimeSinceLastDeath.labels(playerUuid, playerName)
+                .set(e.player.getStatistic(Statistic.TIME_SINCE_DEATH).toDouble() * 0.05)
         }
 
         @EventHandler(priority = EventPriority.MONITOR)
@@ -134,7 +133,7 @@ class Prometric : JavaPlugin() {
     }
 
     override fun onDisable() {
-        onlinePlayer.clear()
+        playerPing.clear()
         metricsServer.close()
     }
 }
